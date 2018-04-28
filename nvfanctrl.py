@@ -42,7 +42,8 @@ class NvidiaRegulator(object):
 
 	def _get_temp(self):
 		output = subprocess.check_output([ "nvidia-settings", "--query", "GPUCoreTemp", "--terse" ])
-		temperature = float(output.decode("ascii").rstrip("\r\n"))
+		temperatures = output.decode("ascii").rstrip("\r\n").split("\n")
+		temperature = float(temperatures[0])
 		return temperature
 
 	def _set_speed(self, percent):
